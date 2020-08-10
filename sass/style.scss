@@ -1,0 +1,282 @@
+@import "header";
+@import "var";
+@import "mixin";
+@import "desktop";
+@import "medium";
+
+
+// @import "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+body {
+    font-size: $bodyfontsize;
+}
+
+//註解
+/*css註解*/
+
+// $os: true/false
+
+.box {
+    font-size: $num;
+    margin: 10px;
+    color: $color;
+}
+
+
+.box2 {
+    padding: $num;
+
+}
+
+.wrapper {
+    font-size: 10px;
+    padding-top: 10px;
+
+    .container {
+        margin-top: 10px;
+        background-color: $color;
+    }
+}
+
+
+.box-small {
+    @include margincenter();
+    height: 400px;
+
+    span {
+        padding: 10px;
+    }
+}
+
+.box-medium {
+    @include margincenter();
+    height: 800px;
+}
+
+
+body {
+    @include fontSize(18px);
+    background-color: rgb(0, 0, 0);
+}
+
+@mixin margin($width:null, $left:null, $right:null) {
+    width: $width;
+    margin-left: $left;
+    margin-right: $right;
+}
+
+.content {
+    @include margin(10px, 100px, 1000px);
+}
+
+//跳脫符號
+@mixin boxs($name, $width) {
+    #{$name} {
+        width: $width;
+    }
+}
+
+@include boxs('.boxname', 100px);
+
+
+
+@mixin btn($colorName, $bgcolor, $borderradius:null, $width:null) {
+    .btn-#{$colorName} {
+        width: $width;
+        height: 30px;
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+        background-color: $bgcolor;
+        @include margincenter();
+        @include fontSize (20px);
+        border-radius: $borderradius;
+        transition: .3s all ease-in-out;
+
+        // darken(#800, 20%)
+        &:hover {
+            background-color: lighten($bgcolor, 20%);
+        }
+
+    }
+}
+
+
+@include btn(yellow, rgb(242, 255, 0));
+@include btn(green, rgb(5, 191, 42), 10px, 50px);
+@include btn(blue, rgb(0, 55, 237), 10px, 100px);
+@include btn(purple, purple, 3px, 100px);
+
+// a {
+//     &:hover {
+//     color: #fff;
+//     }
+//     &:active {
+//     color: aqua;
+//     }
+//     &:before {
+//         content: '';
+//     }
+//     .box {
+//         width: 10px;
+//     }
+// }
+
+
+.box-wide {
+    width: 400px;
+    height: 130px;
+    background-color: rgb(40, 40, 40);
+    color: yellow;
+    @include backlight(20px, 20px, 9, 10, rgb(0, 23, 150), rgb(146, 244, 9), 10);
+}
+
+.contents {
+    @extend .box-wide;
+    color: #fff;
+
+}
+
+.op {
+    width: 100 + 100 + 300px;
+    height: 100px - 10;
+    font-size: 100px - 10 * 5px;
+    margin: (100 / 10) + px;
+    font: 16px / 24px;
+    color: #010203 * #040506;
+}
+
+
+
+
+@include bodysetting(18px);
+
+
+
+@for $i from 1 through 10 {
+
+    .boxfor-#{$i} {
+        width: $i * 10px;
+    }
+}
+
+@mixin edtor ($num) {
+    @for $i from 1 through $num {
+        .boxfor-#{$i} {
+            width: $i * 10px;
+        }
+    }
+}
+
+@include edtor(15);
+
+
+@mixin push-left($num) {
+    @for $i from 1 through $num {
+        .push-left-#{$i} {
+            margin-left: $i * 1px;
+        }
+    }
+}
+
+
+
+@mixin push-dir($dir, $num) {
+    @for $i from 1 through $num {
+        .push-#{$dir}-#{$i} {
+            margin-#{$dir}: $i * 1px;
+        }
+    }
+}
+
+// @include push-left(1000);
+// @include push-dir(top,300);
+// @include push-dir(right,300);
+
+
+// .col-md-1 {
+//     width:  8.888%
+// }
+
+
+@mixin grid($num) {
+    @for $i from 1 through $num {
+        .col-md-#{$i} {
+            width: ($i / $num) *100%;
+        }
+    }
+
+}
+
+@include grid(12);
+
+$list : box1 box2 box3 grand boy;
+
+@each $pic in $list {
+    .img-#{$pic} {
+        background: url('images/#{$pic}.jpg')
+    }
+}
+
+@mixin ifelse($num) {
+    @if $num <=20 {
+        .boxif {
+            width: $num
+        }
+    }
+
+    @else {
+        .boxif {
+            width: ($num / 2);
+        }
+    }
+}
+
+
+
+
+@mixin theme ($theme) {
+    @if $theme==yellow {
+        body {
+            background-color: yellow;
+            @content;
+        }
+    }
+
+    @else if $theme==blue {
+        body {
+            background-color: blue;
+            @content;
+        }
+    }
+
+    @else if $theme==green {
+        body {
+            background-color: green;
+            @content;
+        }
+    }
+}
+
+@include ifelse(30);
+
+@include theme(yellow) {
+    font-size: 20px;
+    color: blue;
+
+    .wrapper {
+        @include margincenter();
+    }
+}
+
+;
+
+
+@include rwd(moblie) {
+
+    .wrapper {
+        width: 80%;
+    }
+
+}
+

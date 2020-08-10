@@ -1,0 +1,113 @@
+
+@mixin margincenter() {
+
+    //do
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+@mixin fontSize($fontsize) {
+    font-size: $fontsize;
+    font-weight: bold;
+    color: #f20;
+
+    h1 {
+        font-size: $fontsize * 6;
+    }
+}
+
+
+@mixin bodysetting ($fontbase) {
+    body {
+        font-size: $fontbase;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+        h1 {
+            font-size: $fontbase * 4;
+        }
+
+        h2 {
+            font-size: $fontbase * 3;
+        }
+
+        h3 {
+            font-size: $fontbase * 2;
+        }
+
+        h4 {
+            font-size: floor($fontbase * 1.4);
+        }
+
+        h5 {
+            font-size: $fontbase * 1;
+        }
+
+        // span {
+        //     width: ceil(100.78px);
+        //     width: round(100.48px);
+        //     width: floor(100.78px);
+        // }
+
+
+    }
+}
+
+
+
+@mixin backlight($x, $y, $spread, $size, $colorA, $colorB, $duration) {
+    &:after {
+        position: absolute;
+        content: "";
+        top: $y;
+        left: $x;
+        right: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+        transform: scale($size);
+        -webkit-filter: blur($spread);
+        -moz-filter: blur($spread);
+        -ms-filter: blur($spread);
+        filter: blur($spread);
+        background: linear-gradient(270deg, $colorA, $colorB);
+        background-size: 200% 200%;
+        animation: animateGlow $duration ease infinite;
+        @keyframes animateGlow {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+    }
+}
+
+
+@mixin rwd($breakpoint) {
+    @if $breakpoint==moblie {
+
+        @media all and (max-width: $moblie) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint==medium {
+
+        @media all and (min-width: $medium-min) and (max-width:$medium-max) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint==desktop {
+        @media all and (min-width: $desktop) {
+            @content;
+        }
+
+    }
+}
